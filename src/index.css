@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.background {
+  position: absolute; /* fixed might also work, but absolute is often safer in complex layouts */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("./imgs/sky3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: brightness(80%);
+  z-index: -1;
+}
