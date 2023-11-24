@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { useWeatherSearch } from "../hooks/useWeatherSearch";
+import { useGeolocation } from "../hooks/useGeolocation";
+import { useWeather } from "../context/WeatherContext";
 
 export const Search = () => {
   const [locationName, setLocationName] = useState("");
-  const { weatherData, loading, error, searchWeather } = useWeatherSearch();
+  const { updateLocation } = useWeather();
 
   const handleSearch = (e) => {
     e.preventDefault();
-    searchWeather(locationName);
-    console.log(weatherData);
+    updateLocation(locationName); // Call updateLocation with the location name
+    console.log(locationName);
   };
 
   return (
@@ -18,17 +19,10 @@ export const Search = () => {
           type="text"
           onChange={(e) => setLocationName(e.target.value)}
           value={locationName}
-          className="w-[520px] p-2 rounded-full shadow-md"
+          className="w-[700px] p-4 bg-gray-100 rounded-lg shadow-md"
           placeholder="Search for a city"
         />
       </form>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
-      {weatherData && (
-        <div>
-          <p>Temperature: {weatherData.main.temp}°K</p>
-        </div>
-      )}
     </div>
   );
 };

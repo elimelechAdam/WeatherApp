@@ -57,5 +57,31 @@ export const useGeolocation = () => {
     }
   }
 
-  return { location, setLocation, getLocation };
+  async function updateLocation(locationName) {
+    try {
+      console.log("Searching for:", locationName); // Check if the function is called with correct input
+      if (!locationName) return;
+      const weatherResponse = await axios.get(
+        `http://api.openweathermap.org/data/2.5/weather?q=${locationName}&appid=${API_KEY}`
+      );
+      const forecastResponse = await axios.get(
+        `http://api.openweathermap.org/data/2.5/forecast?q=${locationName}&appid=${API_KEY}`
+      );
+      console.log("Weather data:", weatherResponse.data); // Check the fetched data
+
+      setLocation({
+        loaded: true,
+        coordinates: {
+          lat: weatherResponse.data.coord.lat,
+          lng: weatherResponse.data.coord.lon,
+        },
+        weather: weatherResponse.data,
+        forecast: forecastResponse.data,
+      });
+    } catch (err) {
+      console.log("error: ", err);
+    }
+  }
+
+  return { location, setLocation, getLocation, updateLocation };
 };

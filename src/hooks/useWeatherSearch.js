@@ -11,11 +11,11 @@ export const useWeatherSearch = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(
+      const { data } = await axios.get(
         `http://api.openweathermap.org/data/2.5/weather?q=${locationName}&appid=${API_KEY}`
       );
-      setWeatherData(response.data);
-      console.log(response);
+      setWeatherData(data);
+      console.log(data.coord);
     } catch (err) {
       setError(err);
     } finally {

@@ -5,8 +5,14 @@ import {
   kelvinToCelsius,
   formatDate,
 } from "../utils/utils";
+import { useWeather } from "../context/WeatherContext";
 
-export const ExtendedForecast = ({ forecast }) => {
+export const ExtendedForecast = () => {
+  const { location } = useWeather();
+  const forecast = location.forecast || {};
+  if (!location.forecast) {
+    return <div>Loading forecast data...</div>;
+  }
   return (
     <div className="p-5 flex flex-col  items-center">
       <h1 className="text-white text-xl my-3">Forecast</h1>
