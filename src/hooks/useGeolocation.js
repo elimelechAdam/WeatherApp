@@ -69,6 +69,8 @@ export const useGeolocation = () => {
       );
       console.log("Weather data:", weatherResponse.data); // Check the fetched data
 
+      if (!weatherResponse || !forecastResponse) return;
+
       setLocation({
         loaded: true,
         coordinates: {
